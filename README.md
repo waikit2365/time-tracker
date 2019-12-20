@@ -135,7 +135,52 @@ or
 Record not found
 ``
 
+### GET /schedule/weekly
 
+List all schedule in weekly report
+
+**Query Params**
+
+- `start_at` - datetime, will match exactly using `WEEK(CURDATE())`
+- `plan_actual` - string, will match exactly
+
+**Sample Response** 
+
+```
+[
+    {
+        "id": 3,
+        "category": "Deployment",
+        "start_at": 14:00,
+        "end_at": 16:00,
+        "plan_actual": "plan"
+    }
+]
+```
+---
+
+### GET /schedule/monthly
+
+List all schedule in monthly report
+
+**Query Params**
+
+ - `start_at` - datetime, will fuzzy search using `MONTH(CURDATE())`
+ - `plan_actual` - string, will match exactly
+
+**Sample Response** 
+
+```
+[
+    {
+        "id": 3,
+        "category": "Deployment",
+        "start_at": 14:00,
+        "end_at": 16:00,
+        "plan_actual": "plan"
+    }
+]
+```
 
 
 
