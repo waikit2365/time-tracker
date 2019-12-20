@@ -1,9 +1,9 @@
 {
    "type": "mssql",
    "host": "localhost",
-   "username": "sa",
-   "password": "Admin12345",
-   "database": "tempdb",
+   "username": "ywk",
+   "password": "1234qwer",
+   "database": "TimeTracker",
    "synchronize": true,
    "logging": false,
    "entities": [
