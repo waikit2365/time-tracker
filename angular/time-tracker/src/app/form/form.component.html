@@ -1,0 +1,15 @@
+<div class="container">
+    <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()">
+        <label>Category</label>
+        <input type="text" formControlName="category"/><br>
+        <label>Description</label>
+        <input type="text" formControlName="description"/><br>
+        <label>Start At</label>
+        <ejs-datetimepicker formControlName='startAt' id='startAt' placeholder='Select a datetime ' [value]= 'dateValueStart' format ='yyyy.MM.dd HH:mm'></ejs-datetimepicker>
+        <label>End At</label>
+        <ejs-datetimepicker formControlName='endAt' id='endAt' placeholder='Select a datetime ' [value]= 'dateValueEnd' format ='yyyy.MM.dd HH:mm'></ejs-datetimepicker>
+        <label>Plan/Actual</label>
+        <input type="text" formControlName="planActual"/><br>
+        <input type="submit" value="Submit" />
+    </form>
+</div>

@@ -1,8 +1,8 @@
 {
    "type": "mssql",
    "host": "localhost",
-   "username": "ywk",
-   "password": "1234qwer",
+   "username": "training",
+   "password": "Admin12345",
    "database": "TimeTracker",
    "synchronize": true,
    "logging": false,

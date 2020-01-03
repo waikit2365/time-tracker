@@ -20,10 +20,10 @@ export class Schedule {
     @Column("datetime", { name: 'end_at' })
     endAt;
 
-    @Column("datetime", { name: 'created_at' })
+    @Column("datetime", { name: 'created_at', nullable: true })
     createdAt;
 
-    @Column("datetime", { name: 'modify_at' })
+    @Column("datetime", { name: 'modify_at', nullable: true })
     modifyAt;
 
     @Column({ name: 'plan_actual' })
