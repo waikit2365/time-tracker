@@ -1,7 +1,9 @@
 package com.timetracker.timetracker.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import com.timetracker.timetracker.entities.Category;
 import com.timetracker.timetracker.entities.Schedule;
 import com.timetracker.timetracker.repositories.CategoryRepository;
 import com.timetracker.timetracker.repositories.ScheduleRepository;
@@ -27,22 +29,54 @@ public class ScheduleController {
 
     @GetMapping(value = "/schedule")
     public List<Schedule> index(
-        @RequestParam(name="startAt", required = false) String startAt,
-        @RequestParam(name="categoryId", required = false) Integer categoryId) {
+        @RequestParam(name="startAt", required = false) LocalDateTime startAt,
+        @RequestParam(name="categoryId", required = false) Long categoryId) {
             if(startAt != null && categoryId == null){
-                return repo.findAllByStartAt(startAt);
+                return repo.searchAllByStartAt(startAt);
             } else if (startAt == null && categoryId != null){
-                return repo.findAllByCategoryId(categoryId);
+                return repo.searchAllByCategoryId(categoryId);
             }
             return repo.findAll();
     }
 
-
     @PostMapping(value="/schedule")
-    public Schedule create(@RequestBody Schedule schedule) {
+    public Schedule create(
+        @RequestBody Schedule schedule
+        ) {
+        schedule.setDescription(schedule.getDescription());
+        schedule.setCreatedAt(LocalDateTime.now());
+        schedule.setStartAt(schedule.getStartAt());
+        schedule.setEndAt(schedule.getEndAt());
+        schedule.setPlanActual(schedule.getPlanActual());
+
+        Category cat = categoryRepo.findById(schedule.getCategoryId()).orElse(null);
+
+        if (cat != null) {
+            schedule.setCategory(cat);
+            cat.getSchedule().add(schedule);
+        }
         repo.save(schedule);
         return schedule;
     }
+
+    // @PostMapping(value="/schedule")
+    // public Schedule create(@RequestBody Schedule schedule) {
+    //     schedule.setDescription(schedule.getDescription());
+    //     schedule.setCreatedAt(LocalDateTime.now());
+    //     schedule.setStartAt(schedule.getStartAt());
+    //     schedule.setEndAt(schedule.getEndAt());
+    //     schedule.setPlanActual(schedule.getPlanActual());
+
+    //     Category cat = categoryRepo.findById(schedule.getCategoryId()).orElse(null);
+
+    //     if (cat != null) {
+    //         schedule.setCategory(cat);
+    //         cat.getSchedule().add(schedule);
+    //     }
+
+    //     repo.save(schedule);
+    //     return schedule;
+    // }
 
     @PutMapping(value="/schedule/{id}")
     public Schedule schedule(
@@ -51,8 +85,9 @@ public class ScheduleController {
     ){
         Schedule schedule = repo.findById(id).orElse(null);
         schedule.setDescription(data.getDescription());
-        schedule.setCreatedAt(data.getCreatedAt());
-        schedule.setEnd_at(data.getEnd_at());
+        schedule.setModifyAt(LocalDateTime.now());
+        schedule.setStartAt(data.getStartAt());
+        schedule.setEndAt(data.getEndAt());
         schedule.setCategoryId(data.getCategoryId());
         schedule.setPlanActual(data.getPlanActual());
         repo.save(schedule);

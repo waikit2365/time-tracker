@@ -1,7 +1,6 @@
 package com.timetracker.timetracker.entities;
 
-import java.sql.Timestamp;
-
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,25 +23,25 @@ public class Schedule {
     @Column
     private String description;
 
-    @Column
-    private Timestamp start_at;
+    @Column(name = "start_at")
+    private LocalDateTime startAt;
 
-    @Column
-    private Timestamp end_at;
+    @Column(name = "end_at")
+    private LocalDateTime endAt;
 
     @Column(name = "created_at")
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "modify_at")
-    private Timestamp modifyAt;
+    private LocalDateTime modifyAt;
 
     @Column(name = "plan_actual")
     private String planActual;
 
     @Column(name = "category_id", insertable = false, updatable = false)
-    private Integer categoryId;
+    private Long categoryId;
 
-    @JsonIgnoreProperties("schedule")
+    @JsonIgnoreProperties("category")
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -64,35 +63,35 @@ public class Schedule {
         this.description = description;
     }
 
-    public Timestamp getStart_at() {
-        return this.start_at;
+    public LocalDateTime getStartAt() {
+        return this.startAt;
     }
 
-    public void setStart_at(Timestamp start_at) {
-        this.start_at = start_at;
+    public void setStartAt(LocalDateTime startAt) {
+        this.startAt = startAt;
     }
 
-    public Timestamp getEnd_at() {
-        return this.end_at;
+    public LocalDateTime getEndAt() {
+        return this.endAt;
     }
 
-    public void setEnd_at(Timestamp end_at) {
-        this.end_at = end_at;
+    public void setEndAt(LocalDateTime endAt) {
+        this.endAt = endAt;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getModifyAt() {
+    public LocalDateTime getModifyAt() {
         return this.modifyAt;
     }
 
-    public void setModifyAt(Timestamp modifyAt) {
+    public void setModifyAt(LocalDateTime modifyAt) {
         this.modifyAt = modifyAt;
     }
 
@@ -104,11 +103,11 @@ public class Schedule {
         this.planActual = planActual;
     }
 
-    public Integer getCategoryId() {
+    public Long getCategoryId() {
         return this.categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -119,5 +118,6 @@ public class Schedule {
     public void setCategory(Category category) {
         this.category = category;
     }
+
 
 }
