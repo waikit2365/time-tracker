@@ -39,6 +39,23 @@ public class ScheduleController {
             return repo.findAll();
     }
 
+    @GetMapping(value = "/scheduleToday")
+    public List<Schedule> show(){
+        return repo.searchAllByToday();
+    }
+
+
+    // @GetMapping(value = "/scheduleWeek")
+    // public List<Schedule> show(){
+    //     return repo.searchAllByThisWeek();
+    // }
+
+
+    // @GetMapping(value = "/scheduleMonth")
+    // public List<Schedule> show(){
+    //     return repo.searchAllByThisMonth();
+    // }
+
     @PostMapping(value="/schedule")
     public Schedule create(
         @RequestBody Schedule schedule
@@ -59,24 +76,7 @@ public class ScheduleController {
         return schedule;
     }
 
-    // @PostMapping(value="/schedule")
-    // public Schedule create(@RequestBody Schedule schedule) {
-    //     schedule.setDescription(schedule.getDescription());
-    //     schedule.setCreatedAt(LocalDateTime.now());
-    //     schedule.setStartAt(schedule.getStartAt());
-    //     schedule.setEndAt(schedule.getEndAt());
-    //     schedule.setPlanActual(schedule.getPlanActual());
 
-    //     Category cat = categoryRepo.findById(schedule.getCategoryId()).orElse(null);
-
-    //     if (cat != null) {
-    //         schedule.setCategory(cat);
-    //         cat.getSchedule().add(schedule);
-    //     }
-
-    //     repo.save(schedule);
-    //     return schedule;
-    // }
 
     @PutMapping(value="/schedule/{id}")
     public Schedule schedule(
@@ -88,8 +88,14 @@ public class ScheduleController {
         schedule.setModifyAt(LocalDateTime.now());
         schedule.setStartAt(data.getStartAt());
         schedule.setEndAt(data.getEndAt());
-        schedule.setCategoryId(data.getCategoryId());
         schedule.setPlanActual(data.getPlanActual());
+
+        Category cat = categoryRepo.findById(schedule.getCategoryId()).orElse(null);
+
+        if (cat != null) {
+            schedule.setCategory(cat);
+            cat.getSchedule().add(schedule);
+        }
         repo.save(schedule);
 
         return schedule;

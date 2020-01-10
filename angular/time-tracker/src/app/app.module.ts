@@ -8,12 +8,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TimeTrackerComponent } from './time-tracker/time-tracker.component';
 import { FormComponent } from './form/form.component';
+import { SearchComponent } from './search/search.component';
+import { SearchBodyComponent } from './search-body/search-body.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TimeTrackerComponent,
-    FormComponent
+    FormComponent,
+    SearchComponent,
+    SearchBodyComponent
   ],
   imports: [
     BrowserModule,
