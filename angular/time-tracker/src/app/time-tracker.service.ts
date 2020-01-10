@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-const BASE_URL = "serviceEndPoint"
+const BASE_URL = "http://localhost:8080/"
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,14 @@ const BASE_URL = "serviceEndPoint"
 export class TimeTrackerService {
 
   constructor(private http:HttpClient) { }
+
+  getCatalog(){
+    return this.http.get(`${BASE_URL}/categories/`)
+  }
+
+  getSchedule(){
+    return this.http.get(`${BASE_URL}/schedule`)
+  }
 
   submit(category, description, startAt, endAt, planActual){
     const params = {

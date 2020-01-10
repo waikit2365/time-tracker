@@ -24,4 +24,13 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
     @Query("SELECT s FROM Schedule s WHERE s.startAt = :startAt")
     public List<Schedule> searchAllByStartAt(@Param("startAt") LocalDateTime startAt);
+
+    @Query("SELECT s FROM Schedule s WHERE CURRENT_DATE = s.startAt")
+    public List<Schedule> searchAllByToday();
+
+    // @Query("SELECT s FROM Schedule s WHERE s.startAt = :startAt")
+    // public List<Schedule> searchAllByThisWeek();
+
+    // @Query("SELECT s FROM Schedule s WHERE s.startAt = :startAt")
+    // public List<Schedule> searchAllByThisMonth();
 }
